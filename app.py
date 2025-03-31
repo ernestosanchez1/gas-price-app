@@ -1,11 +1,12 @@
 from flask import Flask, request, render_template
 import requests
+import os  # Import the os module
 
 app = Flask(__name__)
 
 def get_exchange_rate():
     endpoint = "https://openexchangerates.org/api/latest.json"
-    api_key = "b82552a45fb44b0db8b7ed355b9d9833"  # Consider using environment variables later
+    api_key = os.environ.get('OPEN_EXCHANGE_RATES_API_KEY') # Get API key from environment variables
     response = requests.get(endpoint, params={"app_id": api_key})
     return response.json()["rates"]["CAD"]
 
