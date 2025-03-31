@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gas Price Comparison</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 20px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #3498db; color: white; padding: 10px; border: none; width: 100%; border-radius: 4px; cursor: pointer; }
+        .error { color: #e74c3c; }
+        .note { font-size: 0.9em; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <h1>Gas Price Comparison</h1>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+        <div class="form-group">
+            <label for="van_price">Vancouver Gas Price (CAD/litre):</label>
+            <input type="number" step="0.01" name="van_price" required>
+            <p class="note">Note: Automatically includes $0.08/L Mobil discount</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="usa_price">USA Gas Price (USD/gallon):</label>
+            <input type="number" step="0.01" name="usa_price" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="liters">Amount of Gas Needed (litres):</label>
+            <input type="number" step="1" name="liters" value="50" required>
+        </div>
+        
+        <button type="submit">Compare Prices</button>
+    </form>
+</body>
+</html>

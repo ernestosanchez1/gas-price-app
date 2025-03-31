@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 20px auto; padding: 20px; }
+        .result-box { border: 1px solid #ddd; padding: 20px; margin-top: 20px; border-radius: 5px; }
+        .savings { font-weight: bold; color: #27ae60; font-size: 1.2em; }
+        .percent { color: #2980b9; font-weight: bold; }
+        .rate { font-size: 0.9em; color: #7f8c8d; }
+        hr { border: 0.5px solid #eee; }
+    </style>
+</head>
+<body>
+    <h1>Comparison Results</h1>
+    <div class="result-box">
+        <p>Vancouver: <strong>{{ "%.2f"|format(van_price) }} CAD/L</strong></p>
+        <p>USA: <strong>{{ "%.2f"|format(usa_price) }} USD/gallon</strong></p>
+        <p class="rate">Exchange rate: 1 USD = {{ exchange_rate }} CAD</p>
+        <hr>
+        <p>For {{ liters }} litres:</p>
+        <p>Canada total: <strong>{{ "%.2f"|format(van_total) }} CAD</strong></p>
+        <p>USA total: <strong>{{ "%.2f"|format(usa_total) }} CAD</strong></p>
+        <p class="savings">Savings: {{ "%.2f"|format(savings) }} CAD in {{ cheaper }}</p>
+        <p class="percent">Price difference: {{ percent_cheaper }}% cheaper in {{ cheaper }}</p>
+        <p>Equivalent USA price: {{ "%.2f"|format(usa_per_liter) }} CAD/L</p>
+    </div>
+    <a href="/">← Compare Again</a>
+</body>
+</html>
