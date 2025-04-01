@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import requests
 import os  # Import the os module
+!/usr/bin/env python3
 
 app = Flask(__name__)
 
@@ -49,5 +50,8 @@ def compare():
     
     return render_template('index.html')
 
+#if __name__ == '__main__':
+#    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(host='0.0.0.0',port="8400",debug=True)
+    #app.run(host='172.17.0.1',port="3306",debug=True)
