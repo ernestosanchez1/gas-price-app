@@ -6,7 +6,8 @@ app = Flask(__name__)
 
 def get_exchange_rate():
     endpoint = "https://openexchangerates.org/api/latest.json"
-    api_key = os.environ.get('OPEN_EXCHANGE_RATES_API_KEY') # Get API key from environment variables
+    api_key = "b82552a45fb44b0db8b7ed355b9d9833"  # Consider using environment variables later
+    #api_key = os.environ.get('OPEN_EXCHANGE_RATES_API_KEY') # Get API key from environment variables
     response = requests.get(endpoint, params={"app_id": api_key})
     return response.json()["rates"]["CAD"]
 
@@ -49,4 +50,4 @@ def compare():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
