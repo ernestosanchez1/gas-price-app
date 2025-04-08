@@ -2,12 +2,14 @@
 <html>
 <head>
     <title>Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: Arial; max-width: 600px; margin: 20px auto; padding: 20px; }
         .result-box { border: 1px solid #ddd; padding: 20px; margin-top: 20px; border-radius: 5px; }
         .savings { font-weight: bold; color: #27ae60; font-size: 1.2em; }
         .percent { color: #2980b9; font-weight: bold; }
         .rate { font-size: 0.9em; color: #7f8c8d; }
+        .note { font-size: 0.8em; color: #7f8c8d; margin-top: -10px; margin-bottom: 10px; }
         hr { border: 0.5px solid #eee; }
     </style>
 </head>
@@ -15,6 +17,10 @@
     <h1>Comparison Results</h1>
     <div class="result-box">
         <p>Vancouver: <strong>{{ "%.2f"|format(van_price) }} CAD/L</strong></p>
+        {% if discount_applied %}
+        <p class="note">(Includes $0.08/L Mobil discount)</p>
+        {% endif %}
+        
         <p>USA: <strong>{{ "%.2f"|format(usa_price) }} USD/gallon</strong></p>
         <p class="rate">Exchange rate: 1 USD = {{ exchange_rate }} CAD</p>
         <hr>

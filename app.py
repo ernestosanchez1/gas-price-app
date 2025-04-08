@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import requests
-import os  # Import the os module
+import os  
 
 app = Flask(__name__)
 
@@ -16,9 +16,14 @@ def compare():
     if request.method == 'POST':
         try:
             # Get user inputs
-            van_gas_lt = float(request.form['van_price']) - 0.08  # Apply Mobil discount
+            van_gas_lt = float(request.form['van_price'])
             usa_gas_gal = float(request.form['usa_price'])
             amount_of_lts = float(request.form['liters'])
+            
+            # Apply discount only if checkbox was checked
+            apply_discount = 'apply_discount' in request.form
+            if apply_discount:
+                van_gas_lt -= 0.08
             
             # Get live exchange rate
             usd_cad_rate = get_exchange_rate()
@@ -31,8 +36,11 @@ def compare():
             usa_per_liter = (usa_total / amount_of_lts)
             percent_cheaper = round(((van_total - usa_total) / usa_total) * 100, 1) if usa_total != 0 else 0
             
+            # Prepare display price (show original if discount was applied)
+            van_price_display = van_gas_lt + 0.08 if apply_discount else van_gas_lt
+            
             return render_template('result.html',
-                               van_price=van_gas_lt + 0.08,  # Show original price to user
+                               van_price=van_price_display,
                                usa_price=usa_gas_gal,
                                liters=amount_of_lts,
                                van_total=round(van_total, 2),
@@ -41,7 +49,8 @@ def compare():
                                cheaper=cheaper,
                                usa_per_liter=round(usa_per_liter, 2),
                                exchange_rate=round(usd_cad_rate, 4),
-                               percent_cheaper=percent_cheaper)
+                               percent_cheaper=percent_cheaper,
+                               discount_applied=apply_discount)  # Pass to template if needed
                                
         except Exception as e:
             error = f"Error: {str(e)}"
